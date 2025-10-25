@@ -1,0 +1,35 @@
+# This is a Databricks asset bundle definition for deltabricks.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: deltabricks
+  uuid: ced7a318-61a7-4279-80fe-a1b7f8ba0e0a
+
+artifacts:
+  python_artifact:
+    type: whl
+    build: uv build --wheel
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+targets:
+  dev:
+    # The default target uses 'mode: development' to create a development copy.
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default.
+    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
+    mode: development
+    default: true
+    workspace:
+      host: http://127.0.0.1:7073
+
+  prod:
+    mode: production
+    workspace:
+      host: http://127.0.0.1:7073
+      # We explicitly deploy to /Workspace/Users/khangnghiem@gmail.com to make sure we only have a single copy.
+      root_path: /Workspace/Users/khangnghiem@gmail.com/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - user_name: khangnghiem@gmail.com
+        level: CAN_MANAGE
