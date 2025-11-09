@@ -1,0 +1,11 @@
+resources:
+  pipelines:
+    top_job_popularity:
+      name: top_job_popularity
+      libraries:
+        - glob:
+            include: transformations/**
+      serverless: true
+      catalog: dev
+      schema: default
+      root_path: .

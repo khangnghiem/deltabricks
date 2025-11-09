@@ -1,15 +1,26 @@
 resources:
   pipelines:
-    deltabricks_pipeline:
-      name: deltabricks_pipeline
-      catalog: workspace
-      schema: deltabricks_${bundle.target}
-      serverless: true
-      libraries:
-        - notebook:
-            path: ../src/pipeline.ipynb
-      configuration:
-        bundle.sourcePath: ${workspace.file_path}/src
+    # deltabricks_pipeline:
+    #   name: deltabricks_pipeline
+    #   catalog: workspace
+    #   schema: deltabricks_${bundle.target}
+    #   serverless: true
+    #   libraries:
+    #     - notebook:
+    #         path: ../src/pipeline.ipynb
+    #   configuration:
+    #     bundle.sourcePath: ${workspace.file_path}/src
+
+    # extract_job_prospects_pipeline:
+    #   name: extract_job_prospects
+    #   catalog: workspace
+    #   schema: job_prospects_${bundle.target}
+    #   serverless: true
+    #   libraries:
+    #     - notebook:
+    #         path: ./resources/extract/*.ipynb
+    #   configuration:
+    #     bundle.sourcePath: ${workspace.file_path}/src
 
     clean_job_prospects_pipeline:
       name: clean_job_prospects
@@ -17,7 +28,9 @@ resources:
       schema: job_prospects_${bundle.target}
       serverless: true
       libraries:
+        # - notebook:
+            # path: ../src/extract/*.ipynb
         - notebook:
-            path: ../src/load/*.py
+            path: ../src/load/*.ipynb
       configuration:
         bundle.sourcePath: ${workspace.file_path}/src

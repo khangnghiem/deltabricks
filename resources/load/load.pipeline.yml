@@ -1,0 +1,11 @@
+resources:
+  pipelines:
+    load:
+      name: load
+      libraries:
+        - glob:
+            include: transformations/**
+      serverless: true
+      catalog: dev
+      schema: job_prospects
+      root_path: .
