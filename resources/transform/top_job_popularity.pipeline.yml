@@ -4,7 +4,7 @@ resources:
       name: top_job_popularity
       libraries:
         - glob:
-            include: transformations/**
+            include: transformations/jobs_latest_pipeline.py        
       serverless: true
       catalog: dev
       schema: default

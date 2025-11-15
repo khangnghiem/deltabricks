@@ -18,7 +18,7 @@ resources:
     #   serverless: true
     #   libraries:
     #     - notebook:
-    #         path: ./resources/extract/*.ipynb
+    #         path: extract/*.ipynb
     #   configuration:
     #     bundle.sourcePath: ${workspace.file_path}/src
 
@@ -31,6 +31,6 @@ resources:
         # - notebook:
             # path: ../src/extract/*.ipynb
         - notebook:
-            path: ../src/load/*.ipynb
+            path: load/transformations/*.ipynb
       configuration:
         bundle.sourcePath: ${workspace.file_path}/src

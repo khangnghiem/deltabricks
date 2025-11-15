@@ -12,25 +12,36 @@ resources:
       #    - khangnghiem@gmail.com
 
       tasks:
+        # bronze layer
         - task_key: extract_job_prospects
+          environment_key: default
           spark_python_task:
             python_file: extract/transformations/extract_job_prospects.py
+        # silver layer
         - task_key: clean_job_prospects
+          environment_key: default
           depends_on:
             - task_key: extract_job_prospects
           notebook_task:
             notebook_path: load/transformations/clean_job_prospects.ipynb
+        # feature engineering
+        - task_key: job_description_features
+          environment_key: default
+          depends_on:
+            - task_key: clean_job_prospects
+          spark_python_task:
+            python_file: feature_engineering/transformations/job_description_features.py
+        # gold layer
         - task_key: top_job_popularity
           depends_on:
             - task_key: clean_job_prospects
           notebook_task:
-            notebook_path: top_job_popularity/transformations/top_job_popularity.ipynb
-        - task_key: job_description_features
+            notebook_path: transform/transformations/top_recent_jobs.ipynb
+        - task_key: jobs_by_area
           depends_on:
             - task_key: clean_job_prospects
           notebook_task:
-            notebook_path: ../resources/job_description_features.py
-
+            notebook_path: transform/transformations/jobs_by_area.ipynb
         # - task_key: predict_salary_task
         #   depends_on:
         #     - task_key: job_description_features
@@ -47,3 +58,4 @@ resources:
             environment_version: "2"
             dependencies:
               - ../dist/*.whl
+
