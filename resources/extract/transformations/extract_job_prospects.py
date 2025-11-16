@@ -6,3 +6,4 @@ def extract_jobs_prospects():
     time.sleep(10)
 
 extract_jobs_prospects()
+print("Job prospects data extracted and transformed.")
