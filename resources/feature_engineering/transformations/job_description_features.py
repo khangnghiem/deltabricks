@@ -1,6 +1,5 @@
- from pyspark.ml.feature import VectorAssembler, StandardScaler
+from pyspark.ml.feature import VectorAssembler, StandardScaler
 from pyspark.ml import Pipeline
-import dlt
 import sys
 sys.path.append(spark.conf.get("bundle.sourcePath", "."))
 

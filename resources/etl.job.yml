@@ -24,14 +24,6 @@ resources:
             - task_key: extract_job_prospects
           notebook_task:
             notebook_path: load/transformations/clean_job_prospects.ipynb
-        # feature engineering
-        - task_key: job_description_features
-          environment_key: default
-          depends_on:
-            - task_key: clean_job_prospects
-          spark_python_task:
-            python_file: feature_engineering/transformations/job_description_features.py
-        # gold layer
         - task_key: top_job_popularity
           depends_on:
             - task_key: clean_job_prospects
@@ -42,13 +34,26 @@ resources:
             - task_key: clean_job_prospects
           notebook_task:
             notebook_path: transform/transformations/jobs_by_area.ipynb
-        # - task_key: predict_salary_task
-        #   depends_on:
-        #     - task_key: job_description_features
-        #   environment_key: default
-        #   python_wheel_task:
-        #     package_name: deltabricks
-        #     entry_point: main
+        - task_key: jobs_by_department
+          depends_on:
+            - task_key: clean_job_prospects
+          notebook_task:
+            notebook_path: transform/transformations/jobs_by_department.ipynb
+        - task_key: jobs_by_views
+          depends_on:
+            - task_key: clean_job_prospects
+          notebook_task:
+            notebook_path: transform/transformations/jobs_by_views.ipynb
+        - task_key: top_recent_jobs
+          depends_on:
+            - task_key: clean_job_prospects
+          notebook_task:
+            notebook_path: transform/transformations/top_recent_jobs.ipynb
+        - task_key: top_salary_jobs
+          depends_on:
+            - task_key: clean_job_prospects
+          notebook_task:
+            notebook_path: transform/transformations/top_salary_jobs.ipynb
 
       environments:
         - environment_key: default
